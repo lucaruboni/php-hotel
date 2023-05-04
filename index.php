@@ -40,19 +40,15 @@ $hotels = [
 
 ];
 
+$parkingYorN = $_GET['parkings'];
+
+
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <style>
-        p{
-            border:1px solid black;
-            width: 200px;
-            padding: 5px;
-            align-self: center;
-        }
-    </style>
+   
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -66,55 +62,80 @@ $hotels = [
         
         <h1 class="text-center my-5">HOTELS RATINGS</h1>
 
-        <form action="" method="get"></form>
+        <form  method="get">
+         <label for="parkings">Filters</label>   
+        <select name="parkings" id="parkings">
+            <option value="" selected>No Filter</option>
+            <option  value="1">parking</option>
+            <option value="2">vote</option>
+        </select>
+        <button class="btn btn-primary my-5" type="submit">SUBMIT</button>
+        </form>
+        
+        <?php
+
+        if ($parkingYorN === '') : ?>
 
 
-        <table class="table">
+
+
+                <table class="table">
           <thead>
             <tr>
-
-            <th scope="col">#</th>
-              <th scope="col">First</th>
-              <th scope="col">Last</th>
-              <th scope="col">Handle</th>
-              <th scope="col">Handle</th>
-                
-                
-            </tr>
-          </thead>
-          <tbody>
-          <tr>
-                
+            <th>
+                Name
+            </th>
             <?php foreach ($hotels as $key => $value): ?>
                 <th scope="col">
                       <?php echo $value['name']; ?>
                 </th>
             <?php endforeach;?>
-            
-            
-          </tr>
+                
+                
+            </tr>
+          </thead>
+          <tbody>
+       
             <tr>
+            <th>
+                Description
+            </th>
                 <?php foreach ($hotels as $key => $value): ?>
                     <th scope="col">
                           <?php echo $value['description']; ?>
                     </th>
                 <?php endforeach;?>
             </tr>
+            
             <tr>
+
+            <th>
+                Parkings
+            </th>
             <?php foreach ($hotels as $key => $value): ?>
                     <th scope="col">
                           <?php echo $value['parking']; ?>
                     </th>
                 <?php endforeach;?>
             </tr>
+
+
             <tr>
+            <th>
+                Vote
+            </th>
             <?php foreach ($hotels as $key => $value): ?>
                     <th scope="col">
                           <?php echo $value['vote']; ?>
                     </th>
                 <?php endforeach;?>
             </tr>
+
+
             <tr>
+            <th>
+                Distance to Center
+            </th>
             <?php foreach ($hotels as $key => $value): ?>
                     <th scope="col">
                           <?php echo $value['distance_to_center']; ?>
@@ -123,6 +144,91 @@ $hotels = [
             </tr>
           </tbody>
         </table>
+        
+
+
+
+
+<!-- ELSEIF -->
+
+        <?php elseif($parkingYorN === '1') : ?>
+            
+            
+            <?php if($value['parking'] === true) : ?>
+                
+            <thead>
+            <tr>
+            <th>
+                Name
+            </th>
+            <?php foreach ($hotels as $key => $value): ?>
+                <th scope="col">
+                      <?php echo $value['name']; ?>
+                </th>
+            <?php endforeach;?>
+                
+                
+            </tr>
+          </thead>
+          <tbody>
+       
+            <tr>
+            <th>
+                Description
+            </th>
+                <?php foreach ($hotels as $key => $value): ?>
+                    <th scope="col">
+                          <?php echo $value['description']; ?>
+                    </th>
+                <?php endforeach;?>
+            </tr>
+            
+            <tr>
+
+            <th>
+                Parkings
+            </th>
+            <?php foreach ($hotels as $key => $value): ?>
+                    <th scope="col">
+                          <?php echo $value['parking']; ?>
+                    </th>
+                <?php endforeach;?>
+            </tr>
+
+
+            <tr>
+            <th>
+                Vote
+            </th>
+            <?php foreach ($hotels as $key => $value): ?>
+                    <th scope="col">
+                          <?php echo $value['vote']; ?>
+                    </th>
+                <?php endforeach;?>
+            </tr>
+
+
+            <tr>
+            <th>
+                Distance to Center
+            </th>
+            <?php foreach ($hotels as $key => $value): ?>
+                    <th scope="col">
+                          <?php echo $value['distance_to_center']; ?>
+                    </th>
+                <?php endforeach;?>
+            </tr>
+          </tbody>
+        </table>
+
+        <?php else : ?>
+            
+            <?php endif; ?>
+        
+
+        <?php endif; ?>
+
+
 
       </div>
     </div>
