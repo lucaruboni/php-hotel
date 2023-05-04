@@ -1,7 +1,7 @@
+
 <?php
 
 $hotels = [
-
     [
         'name' => 'Hotel Belvedere',
         'description' => 'Hotel Belvedere Descrizione',
@@ -37,11 +37,17 @@ $hotels = [
         'vote' => 2,
         'distance_to_center' => 50,
     ],
-
 ];
 
 $parkingYorN = $_GET['parkings'];
 
+if ($parkingYorN === '1') {
+    $filteredHotels = array_filter($hotels, function($hotel) {
+        return $hotel['parking'] === true;
+    });
+} else {
+    $filteredHotels = $hotels;
+}
 
 ?>
 
@@ -58,183 +64,95 @@ $parkingYorN = $_GET['parkings'];
 <body>
 
 <div class="container">
-
-        
-        <h1 class="text-center my-5">HOTELS RATINGS</h1>
-
-        <form  method="get">
-         <label for="parkings">Filters</label>   
+    <h1 class="text-center my-5">HOTELS RATINGS</h1>
+    <form method="get">
+        <label for="parkings">Filters</label>   
         <select name="parkings" id="parkings">
             <option value="" selected>No Filter</option>
-            <option  value="1">parking</option>
-            <option value="2">vote</option>
+            <option value="1">Parking</option>
+            <option value="2">Vote</option>
         </select>
         <button class="btn btn-primary my-5" type="submit">SUBMIT</button>
-        </form>
-        
-        <?php
+    </form>
 
-        if ($parkingYorN === '') : ?>
-
-
-
-
-                <table class="table">
-          <thead>
-            <tr>
-            <th>
-                Name
-            </th>
-            <?php foreach ($hotels as $key => $value): ?>
-                <th scope="col">
-                      <?php echo $value['name']; ?>
-                </th>
-            <?php endforeach;?>
-                
-                
-            </tr>
-          </thead>
-          <tbody>
-       
-            <tr>
-            <th>
-                Description
-            </th>
-                <?php foreach ($hotels as $key => $value): ?>
-                    <th scope="col">
-                          <?php echo $value['description']; ?>
-                    </th>
-                <?php endforeach;?>
-            </tr>
-            
-            <tr>
-
-            <th>
-                Parkings
-            </th>
-            <?php foreach ($hotels as $key => $value): ?>
-                    <th scope="col">
-                          <?php echo $value['parking']; ?>
-                    </th>
-                <?php endforeach;?>
-            </tr>
-
-
-            <tr>
-            <th>
-                Vote
-            </th>
-            <?php foreach ($hotels as $key => $value): ?>
-                    <th scope="col">
-                          <?php echo $value['vote']; ?>
-                    </th>
-                <?php endforeach;?>
-            </tr>
-
-
-            <tr>
-            <th>
-                Distance to Center
-            </th>
-            <?php foreach ($hotels as $key => $value): ?>
-                    <th scope="col">
-                          <?php echo $value['distance_to_center']; ?>
-                    </th>
-                <?php endforeach;?>
-            </tr>
-          </tbody>
-        </table>
-        
-
-
-
-
-<!-- ELSEIF -->
-
-        <?php elseif($parkingYorN === '1') : ?>
-            
-            
-            <?php if($value['parking'] === true) : ?>
-                
+    <?php if ($parkingYorN === '') : ?>
+        <table class="table">
             <thead>
-            <tr>
-            <th>
-                Name
-            </th>
-            <?php foreach ($hotels as $key => $value): ?>
-                <th scope="col">
-                      <?php echo $value['name']; ?>
-                </th>
-            <?php endforeach;?>
-                
-                
-            </tr>
-          </thead>
-          <tbody>
-       
-            <tr>
-            <th>
-                Description
-            </th>
-                <?php foreach ($hotels as $key => $value): ?>
-                    <th scope="col">
-                          <?php echo $value['description']; ?>
-                    </th>
-                <?php endforeach;?>
-            </tr>
-            
-            <tr>
-
-            <th>
-                Parkings
-            </th>
-            <?php foreach ($hotels as $key => $value): ?>
-                    <th scope="col">
-                          <?php echo $value['parking']; ?>
-                    </th>
-                <?php endforeach;?>
-            </tr>
-
-
-            <tr>
-            <th>
-                Vote
-            </th>
-            <?php foreach ($hotels as $key => $value): ?>
-                    <th scope="col">
-                          <?php echo $value['vote']; ?>
-                    </th>
-                <?php endforeach;?>
-            </tr>
-
-
-            <tr>
-            <th>
-                Distance to Center
-            </th>
-            <?php foreach ($hotels as $key => $value): ?>
-                    <th scope="col">
-                          <?php echo $value['distance_to_center']; ?>
-                    </th>
-                <?php endforeach;?>
-            </tr>
-          </tbody>
+                <tr>
+                    <th>Name</th>
+                    <?php foreach ($filteredHotels as $hotel): ?>
+                        <th scope="col"><?php echo $hotel['name']; ?></th>
+                    <?php endforeach; ?>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th>Description</th>
+                    <?php foreach ($filteredHotels as $hotel): ?>
+                        <td><?php echo $hotel['description']; ?></td>
+                    <?php endforeach; ?>
+                </tr>
+                <tr>
+                    <th>Parking</th>
+                    <?php foreach ($filteredHotels as $hotel): ?>
+                        <td><?php echo $hotel['parking'] ? 'Yes' : 'No'; ?></td>
+                    <?php endforeach; ?>
+                </tr>
+                <tr>
+                    <th>Vote</th>
+                    <?php foreach ($filteredHotels as $hotel): ?>
+                        <td><?php echo $hotel['vote']; ?></td>
+                    <?php endforeach; ?>
+                </tr>
+                <tr>
+                    <th>Distance to Center</th>
+                    <?php foreach ($filteredHotels as $hotel): ?>
+                        <td><?php echo $hotel['distance_to_center']; ?></td>
+                    <?php endforeach; ?>
+                </tr>
+            </tbody>
         </table>
-
-        <?php else : ?>
-            
-            <?php endif; ?>
-        
-
-        <?php endif; ?>
-
-
-
-      </div>
-    </div>
-
-
-
+    <?php elseif ($parkingYorN === '1'): ?>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <?php foreach ($filteredHotels as $hotel): ?>
+                        <th scope="col"><?php echo $hotel['name']; ?></th>
+                    <?php endforeach; ?>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th>Description</th>
+                    <?php foreach ($filteredHotels as $hotel): ?>
+                        <td><?php echo $hotel['description']; ?></td>
+                    <?php endforeach; ?>
+                </tr>
+                <tr>
+                    <th>Parking</th>
+                    <?php foreach ($filteredHotels as $hotel): ?>
+                        <td><?php echo $hotel['parking'] ? 'Yes' : 'No'; ?></td>
+                    <?php endforeach; ?>
+                </tr>
+                <tr>
+                    <th>Vote</th>
+                    <?php foreach ($filteredHotels as $hotel): ?>
+                        <td><?php echo $hotel['vote']; ?></td>
+                    <?php endforeach; ?>
+                </tr>
+                <tr>
+                    <th>Distance to Center</th>
+                    <?php foreach ($filteredHotels as $hotel): ?>
+                        <td><?php echo $hotel['distance_to_center']; ?></td>
+                    <?php endforeach; ?>
+                </tr>
+            </tbody>
+        </table>
+    <?php else: ?>
+        <p>Error</p>
+    <?php endif; ?>
+</div>
 
 </body>
 </html>
