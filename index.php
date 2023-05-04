@@ -48,6 +48,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <style>
+        p{
+            border:1px solid black;
+            width: 400px;
+            padding: 5px;
+            align-self: center;
+        }
+    </style>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -56,11 +64,16 @@
 </head>
 <body>
     
-            <?php foreach ($hotels as $key => $value) : ?>
-                <?php foreach ($value as $info => $hotelInfo) : ?>
-                    <p ><?= $info ?> : <?= $hotelInfo ?></p>
-                <?php endforeach ?>
-            <?php endforeach; ?>
+          <div class="card text-left">
+          
+            <div class="card-body text-center d-flex flex-column gap-3">
+                <?php foreach ($hotels as $key => $value) : ?>
+                    <?php foreach ($value as $info => $hotelInfo) : ?>
+                        <p><?= $info ?> : <?= $hotelInfo ?></p>
+                    <?php endforeach ?>
+                <?php endforeach; ?>
+            </div>
+          </div>
 
 
 
